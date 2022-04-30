@@ -1,0 +1,31 @@
+name: auto-pull
+on:
+  push:
+    branches:
+      - deploy
+  pull_request:
+    branches:
+      - deploy
+  schedule:
+    - cron: '0 0 * * 1'
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: get latest stable to master
+        run: |
+          git push origin deploy:master -f
+          git fetch --all
+          git switch master
+          git clone https://github.com/DIYgod/RSSHub.git; cd RSSHub
+          git checkout $(git describe --tags --abbrev=0)
+          rm -rf .git README.md; mv * ..; cd ..; rm -rf RSSHub
+      - name: push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m 'auto pull'
+          git push -f origin master
