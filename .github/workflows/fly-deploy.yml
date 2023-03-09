@@ -26,6 +26,7 @@ jobs:
           ref: master
       - name: Copy fly.toml back to repository directory
         run: cp /tmp/fly.toml fly.toml
+      - name: setup flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy to fly.io with remote only option
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only --access-token ${{ secrets.FLY_ACCESS_TOKEN }}
+        run: flyctl deploy --remote-only --access-token ${{ secrets.FLY_ACCESS_TOKEN }}
