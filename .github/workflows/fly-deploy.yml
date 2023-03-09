@@ -1,0 +1,24 @@
+name: Deploy to fly.io
+on:
+  push:
+    branches: master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout deploy branch
+        uses: actions/checkout@v2
+        with:
+          ref: deploy
+      - name: Save fly.toml to another directory
+        run: cp fly.toml /tmp/fly.toml
+      - name: Checkout master branch
+        uses: actions/checkout@v2
+        with:
+          ref: master
+      - name: Copy fly.toml back to repository directory
+        run: cp /tmp/fly.toml fly.toml
+      - name: Install flyctl CLI
+        uses: superfly/flyctl-actions@1.1.0
+      - name: Deploy to fly.io with remote only option
+        run: flyctl deploy --remote-only --access-token ${{ secrets.FLY_ACCESS_TOKEN }}
