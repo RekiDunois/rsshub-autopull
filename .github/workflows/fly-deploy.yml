@@ -9,6 +9,8 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
+  repository_dispatch:
+    types: [deploy]
   
 jobs:
   deploy:
