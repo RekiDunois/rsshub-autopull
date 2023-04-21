@@ -21,7 +21,7 @@ jobs:
           git switch master
           git clone https://github.com/DIYgod/RSSHub.git; cd RSSHub
           git checkout $(git describe --tags --abbrev=0)
-          rm -rf .git README.md; mv * ..; cd ..; rm -rf RSSHub
+          rm -rf .git README.md; mv .* * ..; cd ..; rm -rf RSSHub
       - name: push
         run: |
           git config user.name github-actions
