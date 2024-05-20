@@ -11,6 +11,8 @@ on:
         default: 'false'
   repository_dispatch:
     types: [deploy]
+  schedule:
+    - cron: '0 0 * * 1'
   
 jobs:
   deploy:
