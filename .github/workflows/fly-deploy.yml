@@ -22,15 +22,16 @@ jobs:
           ref: deploy
       - name: Save fly.toml to another directory
         run: cp fly.toml /tmp/fly.toml
-      - name: Checkout master branch
+      - name: Clone RSSHub repository
         uses: actions/checkout@v3
         with:
+          repository: DIYgod/RSSHub
           ref: master
-      - name: Copy fly.toml back to repository directory
-        run: cp /tmp/fly.toml fly.toml
-      - name: setup flyctl
+      - name: Copy fly.toml into RSSHub repository
+        run: cp /tmp/fly.toml ./fly.toml
+      - name: Setup flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy to fly.io with remote only option
-        run: flyctl deploy --remote-only 
+        run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
