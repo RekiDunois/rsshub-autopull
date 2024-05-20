@@ -8,6 +8,9 @@ processes = []
 
 [env]
 
+[build]
+  image = "diygod/rsshub:latest"
+
 [experimental]
   auto_rollback = true
 
