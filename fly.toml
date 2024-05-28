@@ -9,7 +9,7 @@ processes = []
 [env]
 
 [build]
-  image = "diygod/rsshub:latest"
+  image = "diygod/rsshub:chromium-bundled"
 
 [experimental]
   auto_rollback = true
